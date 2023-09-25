@@ -1,0 +1,4 @@
+.gradients {
+  background: radial-gradient(circle, #150050, transparent);
+  filter: blur(100px);
+}
