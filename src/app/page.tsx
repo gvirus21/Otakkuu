@@ -35,17 +35,16 @@ export default function Home() {
           <BsChevronRight className="h-4 mt-1 ml-4" />
         </Link>
       </section>
-      <section className="flex justify-between items-center w-10/12 max-w-[70rem] mx-auto my-10 py-10">
-        <div className="relative h-[30rem] w-[35rem]">
+      <section className="relative flex justify-between items-center w-10/12 max-w-[70rem] mx-auto my-10 py-10">
+        <div className=" h-[30rem] w-[35rem]">
           <Image
-            src="/assets/luffy-gear-5.png"
+            src="/assets/luffy-gear-5.webp"
             className="-ml-10"
             height={500}
             width={500}
             alt="luffy-gear-5"
           />
-          <SmallGradient className="absolute bottom-0 h-[30rem] w-[50rem] -z-10" />
-          <SmallGradient className="absolute -left-20 bottom-20 h-[30rem] w-[50rem] -z-10" />
+          <SmallGradient className="absolute -top-10 -left-60 h-[35rem] w-[80rem] -z-10" />
         </div>
         <div className="flex flex-col w-[38rem]">
           <h2 className="text-6xl font-medium mb-10 tracking-wide">
@@ -66,11 +65,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col justify-between items-center w-10/12 max-w-[70rem] mx-auto my-10 py-10">
+      <section className="relative flex flex-col justify-between items-center w-10/12 max-w-[70rem] mx-auto my-10 py-10">
         <h2 className="w-full text-6xl text-center font-medium mb-10 tracking-wide">
           We can help you with,
         </h2>
         <div className="grid grid-cols-2 gap-x-10 gap-y-10 mt-10">
+          <SmallGradient className="absolute -top-0 -left-28 h-[30rem] w-[80rem] -z-10 bg-red-800" />
           {WE_CAN_HELP_YOU_MESSAGES.map((message, index) => {
             return (
               <div
@@ -82,7 +82,33 @@ export default function Home() {
             );
           })}
         </div>
+        <Link
+          className="w-full mt-14 text-lg text-center hover:underline underline-offset-3"
+          href="/login"
+        >
+          {" "}
+          and Many more..
+        </Link>
       </section>
+      <section>
+        <div className="h-[40rem] overflow-hidden absolute -z-10">
+          <Image
+            height={400}
+            width={1200}
+            quality={100}
+            src="/assets/naruto-sasuke-cover.webp"
+            alt="naruto-sasuke-cover"
+            className="w-full"
+          />
+        </div>
+        <div className="mx-auto pt-[24rem] w-[80rem]">
+          <h2 className="text-6xl ">Trending Anime News</h2>
+        </div>
+      </section>
+      <footer className="flex items-center justify-between h-24 w-[70rem] mt-[30rem] mx-auto">
+        <p>otakkuu © 2023</p>
+        <p>Made with ♥️ by Gourav</p>
+      </footer>
     </main>
   );
 }
