@@ -12,8 +12,15 @@ export const Navbar = () => {
 
         {/* Auth links */}
         <section className="flex items-center w-32 mr-20 text-[13px]">
-          <Link href="/login" className="hover:text-[#9577e7]">Login</Link>
-          <Link href="/login" className="bg-[#714ED3] hover:bg-[#5333ad] px-[10px] py-[3px] rounded-full ml-5">Sign Up</Link>
+          <Link href="/login" className="hover:text-[#9577e7]">
+            Login
+          </Link>
+          <Link
+            href="/login"
+            className="bg-[#714ED3] hover:bg-[#5333ad] px-[10px] py-[3px] rounded-full ml-5"
+          >
+            Sign Up
+          </Link>
         </section>
       </div>
     </nav>
