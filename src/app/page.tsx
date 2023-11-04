@@ -4,14 +4,42 @@ import PurpleGradient, {
   SmallGradient,
 } from "@/components/styling-elements/gradients/top-gradient";
 import { BsChevronRight } from "react-icons/bs";
+import { getNewsNoDetails, NewsDataModel } from "mal-scraper";
+import { scrapNews } from "@shineiichijo/mal-news-scraper";
 
-export default function Home() {
-  const WE_CAN_HELP_YOU_MESSAGES = [
-    "Engage with leading Anime & Manga communities.",
-    "Share fan art, cosplay, reviews and many more.",
-    "Explore your new favourite Anime to binge.",
-    "Stay updated with the latest Anime and Manga news.",
-  ];
+const getNewsLink = (newsItem: NewsDataModel) => {
+  return (newsItem && newsItem.link) || "";
+};
+
+const WE_CAN_HELP_YOU_MESSAGES = [
+  "Engage with leading Anime & Manga communities.",
+  "Share fan art, cosplay, reviews and many more.",
+  "Explore your new favourite Anime to binge.",
+  "Stay updated with the latest Anime and Manga news.",
+];
+
+const fetchAnimeNews = async () => {
+  const news = await getNewsNoDetails();
+  const newsLinks = news.slice(0, 3).map(getNewsLink);
+  const newsPromises = newsLinks.map((link) => scrapNews(link));
+
+  try {
+    const [newsOne, newsTwo, newsThree] = await Promise.all(newsPromises);
+    return [newsOne, newsTwo, newsThree];
+  } catch (error) {
+    console.error("Error scraping news:", error);
+  }
+};
+
+export default async function Home() {
+  let animeNews;
+
+  try {
+    const _animeNews = await fetchAnimeNews();
+    animeNews = _animeNews;
+  } catch (e) {
+    console.error("Encountered error while fetching news: ", e);
+  }
 
   return (
     <main className="relative min-h-screen text-white overflow-x-hidden mx-auto">
@@ -101,8 +129,30 @@ export default function Home() {
             className="w-full"
           />
         </div>
-        <div className="mx-auto pt-[24rem] w-[80rem]">
-          <h2 className="text-6xl ">Trending Anime News</h2>
+        <div className="flex flex-col items-center mx-auto pt-[24rem] w-[80rem]">
+          {animeNews && (
+            <h2 className="text-6xl text-left w-full">Trending Anime News</h2>
+          )}
+          <div className="mt-12 mx-auto">
+            {animeNews?.map((news) => (
+              <div
+                key={news.id}
+                className="relative h-[28rem] w-[80rem] rounded-[3rem] bg-cover overflow-hidden mb-20"
+              >
+                <Image
+                  src={news.image}
+                  height={300}
+                  width={2000}
+                  alt="news"
+                  className="pb-20"
+                />
+                <div className="absolute top-40 left-10 bg-black/40">
+                  <h2 className="text-5xl">{news.title}</h2>
+                  <p className="text-xl">{news.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       <footer className="flex items-center justify-between h-24 w-[70rem] mt-[30rem] mx-auto">
